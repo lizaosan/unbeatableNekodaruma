@@ -52,8 +52,6 @@
                     b.innerHTML = Math.round(beta);
                     g.innerHTML = Math.round(gamma);
 
-                    const img = document.getElementById('image');
-
                     if ( Math.round(alpha) <= 110 && Math.round(alpha) > 70 ) {
                         // img.className = "rotate00";
                         socket.emit('rotate', 'rotate00', () => {
@@ -91,7 +89,7 @@
             // }
 
             // Rotate the image
-            // const img = document.getElementById('image');
+            const img = document.getElementById('image');
             socket.on('getRotate', getAngle => {
                 img.className = getAngle;
             });
