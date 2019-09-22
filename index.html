@@ -86,7 +86,7 @@
                         socket.emit('rotate', 'rotate00', () => {
                             /*...*/
                         })
-                    } else if ( Math.round(gamma) > 35 ) {
+                    } else if ( Math.round(gamma) < -35 ) {
                         // img.className = "rotate90";
                         socket.emit('rotate', 'rotate90', () => {
                             /*...*/
@@ -96,7 +96,7 @@
                         socket.emit('rotate', 'rotate180', () => {
                             /*...*/
                         })
-                    } else if ( Math.round(gamma) < -35 ) {
+                    } else if ( Math.round(gamma) > 35 ) {
                         // img.className = "rotate270";
                         socket.emit('rotate', 'rotate270', () => {
                             /*...*/
