@@ -54,19 +54,25 @@
                     g.innerHTML = Math.round(gamma);
 
                     const img = document.getElementById('image');
-                    switch(Math.round(alpha)) {
-                        case alpha <= 100 && alpha > 80 :
-                            img.className = "rotate00";
-                            break;
-                        case alpha <= 10 || alpha > 350 :
-                            img.className = "rotate90";
-                            break;
-                        case alpha <= 280 && alpha > 260 :
-                            img.className = "rotate180";
-                            break;
-                        case alpha <= 190 && alpha > 170 :
-                            img.className = "rotate270";
-                    };
+
+                    if (Math.round(alpha) <= 180 ) {
+                        img.className = "rotate00";
+                    } else {
+                        img.className = "rotate180";
+                    }
+                    // switch(Math.round(alpha)) {
+                    //     case alpha <= 100 && alpha > 80 :
+                    //         img.className = "rotate00";
+                    //         break;
+                    //     case alpha <= 10 || alpha > 350 :
+                    //         img.className = "rotate90";
+                    //         break;
+                    //     case alpha <= 280 && alpha > 260 :
+                    //         img.className = "rotate180";
+                    //         break;
+                    //     case alpha <= 190 && alpha > 170 :
+                    //         img.className = "rotate270";
+                    // };
 
                 }, false);
             } else {
