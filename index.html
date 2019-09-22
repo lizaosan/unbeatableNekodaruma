@@ -21,6 +21,7 @@
                     alpha:<span id="alpha"></span><br/>
                     beta:<span id="beta"></span><br/>
                     gamma:<span id="gamma"></span><br/>
+                    orientation degree:<span id="degree"></span><br/>
                 </div>
             </div>
          </div>
@@ -38,6 +39,33 @@
                 console.log('Connected to socket...')
             }
 
+            window.addEventListener("orientationchange", function() {
+                // Announce the new orientation number
+                console.log(screen.orientation.angle);
+                var d = document.getElementById('degree');
+                var degree = screen.orientation.angle;
+                d.innerHTML = degree;
+
+                if (degree < 20 || degree > 340) {
+                    socket.emit('rotate', 'rotate00', () => {
+                        /*...*/
+                    })
+                } else if (degree < 110 && degree > 70) {
+                    socket.emit('rotate', 'rotate90', () => {
+                        /*...*/
+                    })
+                } else if (degree < 200 && degree > 160) {
+                    socket.emit('rotate', 'rotate180', () => {
+                        /*...*/
+                    })
+                } else if (degree < 290 && degree > 250) {
+                    socket.emit('rotate', 'rotate270', () => {
+                        /*...*/
+                    })
+                };
+
+            }, false);
+
             // Emit mobile angle value
             if(window.DeviceOrientationEvent) {
                 window.addEventListener('deviceorientation', function(event) {
@@ -52,27 +80,27 @@
                     b.innerHTML = Math.round(beta);
                     g.innerHTML = Math.round(gamma);
 
-                    if ( Math.round(alpha) <= 110 && Math.round(alpha) > 70 ) {
-                        // img.className = "rotate00";
-                        socket.emit('rotate', 'rotate00', () => {
-                            /*...*/
-                        })
-                    } else if ( Math.round(alpha) <= 200 && Math.round(alpha) > 160 ) {
-                        // img.className = "rotate90";
-                        socket.emit('rotate', 'rotate90', () => {
-                            /*...*/
-                        })
-                    } else if ( Math.round(alpha) <= 290 && Math.round(alpha) > 250 ) {
-                        // img.className = "rotate180";
-                        socket.emit('rotate', 'rotate180', () => {
-                            /*...*/
-                        })
-                    } else if ( Math.round(alpha) <= 20 || Math.round(alpha) > 340 ) {
-                        // img.className = "rotate270";
-                        socket.emit('rotate', 'rotate270', () => {
-                            /*...*/
-                        })
-                    };
+                    // if ( Math.round(alpha) <= 110 && Math.round(alpha) > 70 ) {
+                    //     // img.className = "rotate00";
+                    //     socket.emit('rotate', 'rotate00', () => {
+                    //         /*...*/
+                    //     })
+                    // } else if ( Math.round(alpha) <= 200 && Math.round(alpha) > 160 ) {
+                    //     // img.className = "rotate90";
+                    //     socket.emit('rotate', 'rotate90', () => {
+                    //         /*...*/
+                    //     })
+                    // } else if ( Math.round(alpha) <= 290 && Math.round(alpha) > 250 ) {
+                    //     // img.className = "rotate180";
+                    //     socket.emit('rotate', 'rotate180', () => {
+                    //         /*...*/
+                    //     })
+                    // } else if ( Math.round(alpha) <= 20 || Math.round(alpha) > 340 ) {
+                    //     // img.className = "rotate270";
+                    //     socket.emit('rotate', 'rotate270', () => {
+                    //         /*...*/
+                    //     })
+                    // };
 
                 }, false);
             } else {
