@@ -81,22 +81,22 @@
                     b.innerHTML = Math.round(beta);
                     g.innerHTML = Math.round(gamma);
 
-                    if ( Math.round(alpha) <= 110 && Math.round(alpha) > 70 ) {
+                    if ( Math.round(beta) > 35 ) {
                         // img.className = "rotate00";
                         socket.emit('rotate', 'rotate00', () => {
                             /*...*/
                         })
-                    } else if ( Math.round(alpha) <= 200 && Math.round(alpha) > 160 ) {
+                    } else if ( Math.round(gamma) > 35 ) {
                         // img.className = "rotate90";
                         socket.emit('rotate', 'rotate90', () => {
                             /*...*/
                         })
-                    } else if ( Math.round(alpha) <= 290 && Math.round(alpha) > 250 ) {
+                    } else if ( Math.round(beta) < -35 ) {
                         // img.className = "rotate180";
                         socket.emit('rotate', 'rotate180', () => {
                             /*...*/
                         })
-                    } else if ( Math.round(alpha) <= 20 || Math.round(alpha) > 340 ) {
+                    } else if ( Math.round(gamma) < -35 ) {
                         // img.className = "rotate270";
                         socket.emit('rotate', 'rotate270', () => {
                             /*...*/
