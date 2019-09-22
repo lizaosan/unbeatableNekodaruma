@@ -17,10 +17,11 @@
                     <img id="image" src="./mountain.jpg" class="img-fluid" alt="Responsive image">
                </div>
                <div class="col-sm-6 col-md-6 col-lg-4" style="padding: 0.5em 1em 0 1em;">
-                  <p>
-                    請點選按鈕順時針旋轉圖片
-                  </p>
-                  <button id="button">Click me!</button>
+                    <p>請點選按鈕順時針旋轉圖片</p>
+                    <button id="button">Click me!</button>
+                    alpha:<span id="alpha"></span><br/>
+                    beta:<span id="beta"></span><br/>
+                    gamma:<span id="gamma"></span><br/>
                 </div>
             </div>
          </div>
@@ -38,14 +39,33 @@
                 console.log('Connected to socket...')
             }
 
-            // Emit angle value
-            var angle = 0;
-            document.getElementById('button').onclick = function() {
-                angle = (angle + 90) % 360;
-                socket.emit('rotate', angle, () => {
-                    /*...*/
-                });
+            // Emit mobile angle value
+            if(window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', function(event) {
+                    var a = document.getElementById('alpha');
+                    var b = document.getElementById('beta');
+                    var g = document.getElementById('gamma');
+                    var alpha = event.alpha;
+                    var beta = event.beta;
+                    var gamma = event.gamma;
+
+                    a.innerHTML = Math.round(alpha);
+                    b.innerHTML = Math.round(beta);
+                    g.innerHTML = Math.round(gamma);
+
+                }, false);
+            } else {
+                document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
             }
+            
+            // // Emit angle value
+            // var angle = 0;
+            // document.getElementById('button').onclick = function() {
+            //     angle = (angle + 90) % 360;
+            //     socket.emit('rotate', angle, () => {
+            //         /*...*/
+            //     });
+            // }
 
             // Rotate the image
             const img = document.getElementById('image');
