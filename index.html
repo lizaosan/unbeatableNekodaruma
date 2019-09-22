@@ -66,8 +66,12 @@
             // }, false);
 
             // Emit mobile angle value
+
+            window.addEventListener("deviceorientationabsolute", deviceOrientationEvent, false);
+
             if(window.DeviceOrientationEvent) {
                 window.addEventListener('deviceorientation', function(event) {
+                    
                     var a = document.getElementById('alpha');
                     var b = document.getElementById('beta');
                     var g = document.getElementById('gamma');
