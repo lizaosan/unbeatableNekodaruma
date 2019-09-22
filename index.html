@@ -55,13 +55,25 @@
                     const img = document.getElementById('image');
 
                     if ( Math.round(alpha) <= 110 && Math.round(alpha) > 70 ) {
-                        img.className = "rotate00";
+                        // img.className = "rotate00";
+                        socket.emit('rotate', 'rotate00', () => {
+                            /*...*/
+                        })
                     } else if ( Math.round(alpha) <= 200 && Math.round(alpha) > 160 ) {
-                        img.className = "rotate90";
+                        // img.className = "rotate90";
+                        socket.emit('rotate', 'rotate90', () => {
+                            /*...*/
+                        })
                     } else if ( Math.round(alpha) <= 290 && Math.round(alpha) > 250 ) {
-                        img.className = "rotate180";
+                        // img.className = "rotate180";
+                        socket.emit('rotate', 'rotate180', () => {
+                            /*...*/
+                        })
                     } else if ( Math.round(alpha) <= 20 || Math.round(alpha) > 340 ) {
-                        img.className = "rotate270";
+                        // img.className = "rotate270";
+                        socket.emit('rotate', 'rotate270', () => {
+                            /*...*/
+                        })
                     };
 
                 }, false);
@@ -81,7 +93,7 @@
             // Rotate the image
             // const img = document.getElementById('image');
             socket.on('getRotate', getAngle => {
-                img.className = "rotate" + getAngle;
+                img.className = getAngle;
             });
         })();
     </script>
