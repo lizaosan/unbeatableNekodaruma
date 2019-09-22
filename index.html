@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <title>Rotate Image by Phone</title>
+  </head>
+  <body>
+    <div class="container">
+        <nav class="navbar navbar-sm navbar-dark bg-dark" style="margin-top: 1em">
+            <span class="navbar-brand mb-0 h1">Rotate Image by Phone</span>
+        </nav>
+            <div class="row">
+               <div class="col-sm-6 col-md-6 col-lg-8" style="padding: 0.5em 1em 0 1em;">
+                    <img id="image" src="./mountain.jpg" class="img-fluid" alt="Responsive image">
+               </div>
+               <div class="col-sm-6 col-md-6 col-lg-4" style="padding: 0.5em 1em 0 1em;">
+                  <p>
+                    請點選按鈕順時針旋轉圖片
+                  </p>
+                  <button id="button">Click me!</button>
+                </div>
+            </div>
+         </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script>
+        (function() {
+            // Connect to socket.io 
+            var socket = io({ 'timeout':5000, 'connect timeout':5000 });
+
+            // Check for connection
+            if (socket !== undefined) {
+                console.log('Connected to socket...')
+            }
+
+            // Emit angle value
+            var angle = 0;
+            document.getElementById('button').onclick = function() {
+                angle = (angle + 90) % 360;
+                socket.emit('rotate', angle, () => {
+                    /*...*/
+                });
+            }
+
+            // Rotate the image
+            const img = document.getElementById('image');
+            socket.on('getRotate', getAngle => {
+                img.className = "rotate" + getAngle;
+            });
+        })();
+    </script>
+    </body>
+</html>
+
+<style>
+p {font-family: 'Noto Sans TC', sans-serif;}
+
+#image {
+    transform-origin: top left; /* IE 10+, Firefox, etc. */
+    -webkit-transform-origin: top left; /* Chrome */
+    -ms-transform-origin: top left; /* IE 9 */
+    width: 100%;
+    height: auto;
+}
+#image.rotate90 {
+    transform: rotate(90deg) translateY(-100%);
+    -webkit-transform: rotate(90deg) translateY(-100%);
+    -ms-transform: rotate(90deg) translateY(-100%);
+    width: 100%;
+    height: auto;
+}
+#image.rotate180 {
+    transform: rotate(180deg) translate(-100%,-100%);
+    -webkit-transform: rotate(180deg) translate(-100%,-100%);
+    -ms-transform: rotate(180deg) translateX(-100%,-100%);
+    width: 100%;
+    height: auto;
+}
+#image.rotate270 {
+    transform: rotate(270deg) translateX(-100%);
+    -webkit-transform: rotate(270deg) translateX(-100%);
+    -ms-transform: rotate(270deg) translateX(-100%);
+    width: 100%;
+    height: auto;
+}
+
+</style>
