@@ -18,7 +18,7 @@
                </div>
                <div class="col-sm-6 col-md-6 col-lg-4" style="padding: 0.5em 1em 0 1em;">
                     <p>請點選按鈕順時針旋轉圖片</p>
-                    <button id="button">Click me!</button>
+                    <button id="button">Click me!</button><br/>
                     alpha:<span id="alpha"></span><br/>
                     beta:<span id="beta"></span><br/>
                     gamma:<span id="gamma"></span><br/>
@@ -53,6 +53,21 @@
                     b.innerHTML = Math.round(beta);
                     g.innerHTML = Math.round(gamma);
 
+                    const img = document.getElementById('image');
+                    switch(Math.round(alpha)) {
+                        case alpha <= 100 && alpha > 80 :
+                            img.className = "rotate00";
+                            break;
+                        case alpha <= 10 && alpha > 350 :
+                            img.className = "rotate90";
+                            break;
+                        case alpha <= 280 && alpha > 260 :
+                            img.className = "rotate180";
+                            break;
+                        case alpha <= 190 && alpha > 170 :
+                            img.className = "rotate270";
+                    };
+
                 }, false);
             } else {
                 document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
@@ -68,7 +83,7 @@
             // }
 
             // Rotate the image
-            const img = document.getElementById('image');
+            // const img = document.getElementById('image');
             socket.on('getRotate', getAngle => {
                 img.className = "rotate" + getAngle;
             });
