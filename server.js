@@ -13,7 +13,6 @@ io.on('connection', socket => {
     console.log('a user connected');
 
     socket.on('rotate', (angle) => {
-        // console.log(angle);
         io.emit("getRotate", angle)
     })
 

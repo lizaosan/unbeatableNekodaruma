@@ -17,7 +17,7 @@
                     <img id="image" src="./nekodaruma.jpg" class="img-fluid" alt="Responsive image">
                </div>
                <div class="col-sm-6 col-md-6 col-lg-4" style="padding: 0.5em 1em 0 1em;">
-                    <p id="description">旋轉手機，試著讓貓咪不倒翁跌倒吧！</p>
+                    <p id="description">麻煩您關閉手機的自動旋轉功能，旋轉手機，試著讓貓咪不倒翁跌倒吧！</p>
                     alpha:<span id="alpha"></span><br/>
                     beta:<span id="beta"></span><br/>
                     gamma:<span id="gamma"></span><br/>
@@ -38,35 +38,7 @@
                 console.log('Connected to socket...')
             }
 
-            // window.addEventListener("orientationchange", function() {
-            //     // Announce the new orientation number
-            //     console.log(screen.orientation.angle);
-            //     var d = document.getElementById('degree');
-            //     var degree = screen.orientation.angle;
-            //     d.innerHTML = degree;
-
-            //     if (degree < 20 || degree > 340) {
-            //         socket.emit('rotate', 'rotate00', () => {
-            //             /*...*/
-            //         })
-            //     } else if (degree < 110 && degree > 70) {
-            //         socket.emit('rotate', 'rotate90', () => {
-            //             /*...*/
-            //         })
-            //     } else if (degree < 200 && degree > 160) {
-            //         socket.emit('rotate', 'rotate180', () => {
-            //             /*...*/
-            //         })
-            //     } else if (degree < 290 && degree > 250) {
-            //         socket.emit('rotate', 'rotate270', () => {
-            //             /*...*/
-            //         })
-            //     };
-
-            // }, false);
-
             // Emit mobile angle value
-
             if(window.DeviceOrientationEvent) {
                 window.addEventListener('deviceorientation', function(event) {
                     
@@ -82,25 +54,13 @@
                     g.innerHTML = Math.round(gamma);
 
                     if ( Math.round(beta) > 35 ) {
-                        // img.className = "rotate00";
-                        socket.emit('rotate', 'rotate00', () => {
-                            /*...*/
-                        })
+                        socket.emit('rotate', 'rotate00')
                     } else if ( Math.round(gamma) < -35 ) {
-                        // img.className = "rotate90";
-                        socket.emit('rotate', 'rotate90', () => {
-                            /*...*/
-                        })
+                        socket.emit('rotate', 'rotate90')
                     } else if ( Math.round(beta) < -35 ) {
-                        // img.className = "rotate180";
-                        socket.emit('rotate', 'rotate180', () => {
-                            /*...*/
-                        })
+                        socket.emit('rotate', 'rotate180')
                     } else if ( Math.round(gamma) > 35 ) {
-                        // img.className = "rotate270";
-                        socket.emit('rotate', 'rotate270', () => {
-                            /*...*/
-                        })
+                        socket.emit('rotate', 'rotate270')
                     };
 
                 }, false);
@@ -108,15 +68,6 @@
                 document.getElementById("description").innerHTML = '您的裝置不支援此程式喔，請以手機操縱。';
             }
             
-            // // Emit angle value
-            // var angle = 0;
-            // document.getElementById('button').onclick = function() {
-            //     angle = (angle + 90) % 360;
-            //     socket.emit('rotate', angle, () => {
-            //         /*...*/
-            //     });
-            // }
-
             // Rotate the image
             const img = document.getElementById('image');
             socket.on('getRotate', getAngle => {
@@ -160,3 +111,33 @@ p {font-family: 'Noto Sans TC', sans-serif;}
 }
 
 </style>
+
+<script>
+// 放棄的代碼
+// window.addEventListener("orientationchange", function() {
+    //     // Announce the new orientation number
+    //     console.log(screen.orientation.angle);
+    //     var d = document.getElementById('degree');
+    //     var degree = screen.orientation.angle;
+    //     d.innerHTML = degree;
+
+    //     if (degree < 20 || degree > 340) {
+    //         socket.emit('rotate', 'rotate00', () => {
+    //             /*...*/
+    //         })
+    //     } else if (degree < 110 && degree > 70) {
+    //         socket.emit('rotate', 'rotate90', () => {
+    //             /*...*/
+    //         })
+    //     } else if (degree < 200 && degree > 160) {
+    //         socket.emit('rotate', 'rotate180', () => {
+    //             /*...*/
+    //         })
+    //     } else if (degree < 290 && degree > 250) {
+    //         socket.emit('rotate', 'rotate270', () => {
+    //             /*...*/
+    //         })
+    //     };
+
+    // }, false);
+</script>
